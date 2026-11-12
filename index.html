@@ -1,6 +1,6 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#05070b"><meta name="description" content="MENE: seu acampamento de estudos para o 2º dia do Enem, em pixel art."><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><title>MENE</title>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#05070b"><meta name="description" content="MENE: seu acampamento de estudos para o segundo dia do Enem, em pixel art."><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><title>MENE</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Pixelify+Sans:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Pixelify+Sans:wght@500;600;700&family=Press+Start+2P&display=swap">
 <style>
 /* Layout: barra lateral fixa à esquerda (vira barra inferior no celular) e páginas em painéis arredondados.
    Início = cena noturna em pixel art com contagem regressiva no céu + catálogo de matérias. Visual escuro de propósito, com azul-claro como cor principal
@@ -10,6 +10,7 @@
   --bg:#05070b; --bg2:#090d14; --surf:#0d131c; --surf2:#121a26; --line:rgba(150,190,255,.11); --line2:rgba(150,190,255,.22);
   --ink:#ebf3fd; --dim:#97a6ba; --mute:#5f6d81; --sky:#8fd3ff; --sky2:#4aa3ff; --sky-ink:#04111f; --ember:#ff8a3c; --ok:#5fe0a0; --flag:#ff4a4a;
   --display:"Pixelify Sans","Courier New",ui-monospace,monospace;
+  --num:"Press Start 2P","Courier New",ui-monospace,monospace;
   --body:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --side:244px; --glow:rgba(74,163,255,.18);
 }
@@ -25,7 +26,7 @@ h1,h2,h3,p,ul,ol{margin:0}
 ul,ol{padding:0;list-style:none}
 .logo{width:22px;height:auto;image-rendering:pixelated;flex:none;filter:drop-shadow(0 2px 6px rgba(255,74,74,.25))}
 .px{font-family:var(--display);letter-spacing:.02em}
-.eyebrow{font-family:var(--display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--sky)}
+.eyebrow{font-family:var(--body);font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--sky)}
 .dot{display:inline-block;width:9px;height:9px;border-radius:3px;flex:none;background:var(--c1,var(--sky))}
 .bar{height:6px;border-radius:99px;background:rgba(150,190,255,.12);overflow:hidden}
 .bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--c2,var(--sky2)),var(--c1,var(--sky)));transition:width .6s}
@@ -59,7 +60,7 @@ ul,ol{padding:0;list-style:none}
 .nav-i:hover{background:rgba(255,255,255,.05);color:var(--ink)}
 .nav-i[aria-current="page"]{background:linear-gradient(90deg,rgba(143,211,255,.16),rgba(143,211,255,.03));color:#fff;box-shadow:inset 0 0 0 1px rgba(143,211,255,.22)}
 .nav-i[aria-current="page"]::after{content:"";position:absolute;left:-14px;top:12px;bottom:12px;width:4px;border-radius:0 4px 4px 0;background:var(--sky);box-shadow:0 0 14px var(--sky)}
-.nav-badge{margin-left:auto;font-family:var(--display);font-size:12px;padding:2px 7px;border-radius:8px;background:rgba(255,138,60,.16);color:#ffb37a;font-variant-numeric:tabular-nums}
+.nav-badge{margin-left:auto;font-family:var(--num);font-size:9px;line-height:1.6;padding:2px 7px;border-radius:8px;background:rgba(255,138,60,.16);color:#ffb37a;font-variant-numeric:tabular-nums}
 .side-foot{margin-top:auto;display:grid;gap:10px}
 .profile{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;padding:12px;border-radius:18px;background:linear-gradient(160deg,rgba(255,138,60,.12),rgba(143,211,255,.05) 60%);border:1px solid var(--line2);transition:border-color .2s}
 .profile:hover{border-color:rgba(255,138,60,.45)}
@@ -69,7 +70,7 @@ ul,ol{padding:0;list-style:none}
 .profile>div{min-width:0}
 .side-row{display:flex;gap:6px}
 .mini-stat{flex:1;display:flex;align-items:center;gap:6px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line);font-size:12.5px;color:var(--dim);font-variant-numeric:tabular-nums;white-space:nowrap}
-.mini-stat b{color:var(--ink);font-family:var(--display);font-size:15px}
+.mini-stat b{color:var(--ink);font-family:var(--num);font-size:11px}
 .mini-stat svg{width:14px;height:14px;fill:var(--ember)}
 .icon-btn{width:38px;flex:none;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
 .icon-btn svg{width:18px;height:18px;fill:none;stroke:var(--dim);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -104,10 +105,10 @@ ul,ol{padding:0;list-style:none}
 .count-k{font-family:var(--display);font-size:clamp(13px,1.4vw,16px);letter-spacing:.24em;text-transform:uppercase;color:rgba(214,234,255,.72);text-shadow:0 0 14px rgba(120,180,255,.5)}
 .count-n{display:flex;justify-content:center;align-items:flex-start;gap:clamp(8px,2.2vw,30px);margin:10px 0 6px;opacity:.86;mix-blend-mode:screen}
 .count-n span{display:grid;justify-items:center}
-.count-n b{font-family:var(--display);font-weight:600;font-size:clamp(52px,8.6vw,140px);line-height:.9;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#fff 12%,#cfeaff 50%,#79bff7 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 24px rgba(110,180,255,.45))}
-.count-n small{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:rgba(214,234,255,.65);margin-top:4px}
-.count-n i{font-family:var(--display);font-style:normal;font-size:clamp(40px,7vw,100px);line-height:.95;color:rgba(190,225,255,.35)}
-.count-n.done b{font-size:clamp(56px,11vw,150px)}
+.count-n b{font-family:var(--num);font-weight:400;font-size:clamp(34px,5.6vw,92px);line-height:1;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#fff 12%,#cfeaff 50%,#79bff7 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 24px rgba(110,180,255,.45))}
+.count-n small{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:rgba(214,234,255,.65);margin-top:12px}
+.count-n i{font-family:var(--num);font-style:normal;font-size:clamp(24px,4vw,64px);line-height:1.4;color:rgba(190,225,255,.35)}
+.count-n.done b{font-size:clamp(28px,5vw,80px);line-height:1.2}
 .count-sub{font-size:14px;color:rgba(214,234,255,.75);text-shadow:0 2px 10px rgba(0,0,0,.6)}
 .count-cta{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:22px}
 .count-cta .btn-sec{background:rgba(8,12,30,.45);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
@@ -348,11 +349,11 @@ ul,ol{padding:0;list-style:none}
 .opts .ic{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-family:var(--display);font-size:18px;background:rgba(143,211,255,.12);color:var(--sky)}
 .opts.row{grid-template-columns:repeat(auto-fit,minmax(90px,1fr))}
 .opts.row button{grid-template-columns:1fr;text-align:center;justify-items:center;padding:14px 8px}
-.opts.row b{font-family:var(--display);font-size:20px}
+.opts.row b{font-family:var(--num);font-size:13px;line-height:1.6}
 .quiz-act{display:flex;justify-content:space-between;gap:10px;margin-top:4px}
 .res{width:min(420px,100%);padding:26px;border-radius:26px;background:#0a0f18;border:1px solid var(--line2);text-align:center;display:grid;gap:12px}
 .res h2{font-family:var(--display);font-size:34px;line-height:1.05}
-.res-xp{font-family:var(--display);font-size:48px;line-height:1;color:var(--ember);text-shadow:0 0 24px rgba(255,138,60,.5)}
+.res-xp{font-family:var(--num);font-size:34px;line-height:1;color:var(--ember);text-shadow:0 0 24px rgba(255,138,60,.5)}
 .res p{color:var(--dim)}
 #toast{position:fixed;z-index:50;left:50%;top:calc(18px + env(safe-area-inset-top,0px));transform:translate(-50%,-12px);padding:10px 18px;border-radius:99px;background:#eaf6ff;color:#06111e;font-weight:800;font-size:14px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;max-width:calc(100% - 32px);text-align:center;box-shadow:0 12px 30px -10px rgba(143,211,255,.6)}
 #toast.show{opacity:1;transform:translate(-50%,0)}
@@ -391,7 +392,7 @@ ul,ol{padding:0;list-style:none}
   .pip{top:56px;left:12px;right:12px;width:auto}
   .st-topic{grid-template-columns:1fr}
 }
-@media (max-width:520px){.cards,.guard{grid-template-columns:1fr}.kpi b{font-size:30px}.count-n{gap:16px}.count-n b{font-size:clamp(40px,12.5vw,64px)}.count-n small{font-size:10px;letter-spacing:.14em;margin-top:8px}.count-n i{display:none}.count-sub{font-size:12.5px;max-width:30ch;margin:0 auto}.detail-main{padding:20px}}
+@media (max-width:520px){.cards,.guard{grid-template-columns:1fr}.kpi b{font-size:30px}.count-n{gap:12px}.count-n b{font-size:clamp(20px,6.6vw,30px)}.count-k{font-size:11px;letter-spacing:.14em}.count-n small{font-size:10px;letter-spacing:.14em;margin-top:8px}.count-n i{display:none}.count-sub{font-size:12.5px;max-width:30ch;margin:0 auto}.detail-main{padding:20px}}
 @media (max-height:700px) and (min-width:900px){.count{top:42%}.count-cta{margin-top:14px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.card{transform:none}}
 </style>
@@ -407,7 +408,7 @@ ul,ol{padding:0;list-style:none}
   <div class="side-foot">
     <a class="profile spot" href="#relatorio"><canvas id="avSide" aria-hidden="true"></canvas><div><b id="pName">Estudante</b><small id="pLvl">Nível 1 · Camponês</small><div class="bar"><i id="pXp"></i></div></div></a>
     <div class="side-row">
-      <div class="mini-stat" title="Dias seguidos com 10 min ou mais"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c1 4 5 5.500 5 10.500A5 5 0 0 1 12 22a5 5 0 0 1-5-5c0-2.200 1.200-3.600 2.200-4.800C10.400 10.800 11.600 8 12 2z"/></svg><b id="pStreak">0</b>dias</div>
+      <div class="mini-stat" title="Dias seguidos com 10 min ou mais"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c1 4 5 5.500 5 10.500A5 5 0 0 1 12 22a5 5 0 0 1-5-5c0-2.200 1.200-3.600 2.200-4.800C10.400 10.800 11.600 8 12 2z"/></svg><b id="pStreak">0</b><span id="pStreakL">dias</span></div>
       <div class="mini-stat" title="Estudado hoje"><b id="pToday">0</b>min hoje</div>
       <button class="icon-btn" id="snd" aria-pressed="false" aria-label="Música"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="on" d="M16.500 8.500a5 5 0 0 1 0 7M19 6a8.500 8.500 0 0 1 0 12"/><path class="off" d="M17 9l5 6M22 9l-5 6"/></svg></button>
     </div>
@@ -440,7 +441,7 @@ ul,ol{padding:0;list-style:none}
 
   <section class="page" id="pg-materias" hidden style="--glow:rgba(124,110,255,.2)">
     <div class="wrap">
-      <header class="page-head"><p class="eyebrow">Matérias</p><h1 class="scenic" id="matTitle">2º dia do Enem</h1><p>Matemática tem 45 questões. Física, Química e Biologia dividem as outras 45 de Ciências da Natureza, cerca de 15 cada. A prova é no domingo, 15 de novembro, das 13h30 às 18h30.</p></header>
+      <header class="page-head"><p class="eyebrow">Matérias</p><h1 class="scenic" id="matTitle">Segundo dia do Enem</h1><p>Matemática tem 45 questões. Física, Química e Biologia dividem as outras 45 de Ciências da Natureza, cerca de 15 cada. A prova é no domingo, 15 de novembro, das 13h30 às 18h30.</p></header>
       <div class="cards" id="cardsMat"></div>
       <h2 class="h3">O que mais cai, em todas as matérias</h2><p>Os temas marcados como "Mais cai" de cada matéria. Comece por aqui se o tempo está curto.</p>
       <div class="nexts" id="topAll"></div>
@@ -1248,7 +1249,7 @@ function renderHome(){
 function renderCount(force){
   const el=$('#count');if(!el)return;const ms=EXAM-Date.now(),cta='<div class="count-cta"><a class="btn btn-pri" href="#cronometro">'+ICON.play+'Estudar agora</a><button class="btn btn-sec" data-act="catalog">Ver matérias</button></div>';
   if(ms<=0){if(el.dataset.st!=='done'||force){el.dataset.st='done';el.innerHTML='<p class="count-k">Chegou o dia</p><div class="count-n done"><span><b>Boa prova!</b></span></div><p class="count-sub">Respire fundo. Você se preparou para isto.</p>'+cta}return}
-  if(el.dataset.st!=='run'||force){el.dataset.st='run';el.innerHTML='<p class="count-k">Faltam para o 2º dia do Enem</p><div class="count-n"><span><b id="cD">0</b><small>dias</small></span><i>:</i><span><b id="cH">0</b><small>horas</small></span><i>:</i><span><b id="cM">0</b><small>min</small></span><i>:</i><span><b id="cS">0</b><small>seg</small></span></div><p class="count-sub">Domingo, 15 de novembro · 11h40, horário de Brasília</p>'+cta}
+  if(el.dataset.st!=='run'||force){el.dataset.st='run';el.innerHTML='<p class="count-k">Faltam para o segundo dia do Enem</p><div class="count-n"><span><b id="cD">0</b><small>dias</small></span><i>:</i><span><b id="cH">0</b><small>horas</small></span><i>:</i><span><b id="cM">0</b><small>min</small></span><i>:</i><span><b id="cS">0</b><small>seg</small></span></div><p class="count-sub">Domingo, 15 de novembro · 11h40, horário de Brasília</p>'+cta}
   const s=Math.floor(ms/1000);$('#cD').textContent=pad(Math.floor(s/86400));$('#cH').textContent=pad(Math.floor(s%86400/3600));$('#cM').textContent=pad(Math.floor(s%3600/60));$('#cS').textContent=pad(s%60);
 }
 
@@ -1388,7 +1389,7 @@ let qStep=0,qData={};
 function openQuiz(){qStep=0;qData={name:state.name,level:state.level,goal:state.goal};$('#quiz').hidden=false;renderQuiz()}
 function renderQuiz(){
   const el=$('#quiz'),steps='<div class="steps">'+[0,1,2,3].map(i=>'<i class="'+(i<=qStep?'on':'')+'"></i>').join('')+'</div>';let h='';
-  if(qStep===0)h='<div class="quiz-top">'+steps+'<span class="logo-slot">'+Scenes.LOGO+'</span></div><p class="eyebrow">Bem-vindo ao MENE</p><h2 id="quizTitle">Seu acampamento de estudos para o 2º dia do Enem</h2><p>Três perguntas rápidas para montar o seu foco. Dá para refazer depois.</p><label for="qName" style="font-weight:700;font-size:14px">Como podemos te chamar?</label><input id="qName" type="text" maxlength="40" placeholder="Seu nome ou apelido" value="'+esc(qData.name||'')+'"><div class="quiz-act"><span></span><button class="btn btn-pri" data-q="next">Continuar</button></div>';
+  if(qStep===0)h='<div class="quiz-top">'+steps+'<span class="logo-slot">'+Scenes.LOGO+'</span></div><p class="eyebrow">Bem-vindo ao MENE</p><h2 id="quizTitle">Seu acampamento de estudos para o segundo dia do Enem</h2><p>Três perguntas rápidas para montar o seu foco. Dá para refazer depois.</p><label for="qName" style="font-weight:700;font-size:14px">Como podemos te chamar?</label><input id="qName" type="text" maxlength="40" placeholder="Seu nome ou apelido" value="'+esc(qData.name||'')+'"><div class="quiz-act"><span></span><button class="btn btn-pri" data-q="next">Continuar</button></div>';
   else if(qStep===1)h='<div class="quiz-top">'+steps+'</div><h2 id="quizTitle">Quanto você já estudou para o Enem?</h2><p>Isso muda quais temas aparecem como prioridade.</p><div class="opts">'+[['semana','I','Comecei esta semana','Prioridade nos temas que mais caem'],['meses','II','Estudo há alguns meses','Temas que mais caem e os que caem às vezes'],['ano','III','Já faz mais de um ano','Fechar lacunas e treinar prova']].map(o=>'<button data-lv="'+o[0]+'" aria-pressed="'+(qData.level===o[0])+'"><span class="ic">'+o[1]+'</span><span><b>'+o[2]+'</b><small>'+o[3]+'</small></span></button>').join('')+'</div><div class="quiz-act"><button class="btn btn-sec" data-q="prev">Voltar</button><button class="btn btn-pri" data-q="next"'+(qData.level?'':' disabled')+'>Continuar</button></div>';
   else if(qStep===2)h='<div class="quiz-top">'+steps+'</div><h2 id="quizTitle">Quanto tempo por dia você consegue estudar?</h2><p>Vira a sua meta diária. O céu do cronômetro anoitece quando você chega nela.</p><div class="opts row">'+[30,60,90,120,180].map(g=>'<button data-g="'+g+'" aria-pressed="'+(qData.goal===g)+'"><b>'+fmtDur(g)+'</b></button>').join('')+'</div><div class="quiz-act"><button class="btn btn-sec" data-q="prev">Voltar</button><button class="btn btn-pri" data-q="next">Continuar</button></div>';
   else{const L=LEVELS[qData.level||'semana'];h='<div class="quiz-top">'+steps+'</div><p class="eyebrow">Seu foco'+(qData.name?', '+esc(qData.name):'')+'</p><h2 id="quizTitle">'+L.title+'</h2><p>'+L.body+'</p><div class="nexts">'+SORDER.map(s=>{const n=subjTopics(s).filter(t=>t.tier<=L.max).length;return'<div class="next" style="--c1:'+SUBJECTS[s].c1+'"><span class="dot"></span><div><b>'+SUBJECTS[s].name+'</b><small>'+n+' temas prioritários</small></div><span class="tag t1">'+fmtDur(qData.goal)+'/dia</span></div>'}).join('')+'</div><div class="quiz-act"><button class="btn btn-sec" data-q="prev">Voltar</button><button class="btn btn-pri" data-q="finish">Entrar no acampamento</button></div>'}
@@ -1399,7 +1400,7 @@ function finishQuiz(){state.name=(qData.name||'').trim().slice(0,40);state.level
 /* ── barra lateral ── */
 function renderSide(){
   const x=xpTotal(),l=levelOf(x),s=state.session;$('#pName').textContent=state.name||'Estudante';$('#pLvl').textContent='Nível '+l.n+' · '+l.name;$('#pXp').style.width=Math.round(l.f*100)+'%';
-  $('#pStreak').textContent=streak();$('#pToday').textContent=Math.floor(daySec(today())/60);$('#snd').setAttribute('aria-pressed',String(!!state.sound));
+  {const st=streak();$('#pStreak').textContent=st;$('#pStreakL').textContent=st===1?'dia':'dias'}$('#pToday').textContent=Math.floor(daySec(today())/60);$('#snd').setAttribute('aria-pressed',String(!!state.sound));
   const b=$('#navT');if(s){b.hidden=false;b.textContent=s.t0?fmtClock(sessElapsed()):'pausa'}else b.hidden=true;
 }
 
