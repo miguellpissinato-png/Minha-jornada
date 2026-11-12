@@ -229,6 +229,35 @@ ul,ol{padding:0;list-style:none}
 .page-head h1{font-size:clamp(44px,6vw,80px)}
 .page-head p{color:var(--dim);max-width:62ch;font-size:15.5px}
 
+/* vídeos */
+.vids-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:28px}
+.vids-head h3{font-family:var(--display);font-size:22px;font-weight:700}
+.vids-head p{color:var(--dim);font-size:13px}
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:14px}
+.vid{border-radius:20px;overflow:hidden;background:#0b1018;border:1px solid var(--line);transition:border-color .2s,transform .2s}
+.vid:hover{border-color:color-mix(in srgb,var(--c1) 45%,transparent)}
+.vid-frame{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,color-mix(in srgb,var(--c2) 40%,#05070b),#05070b)}
+.vid-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:.88;transition:opacity .2s,transform .4s}
+.vid-frame .vbtn{position:absolute;inset:0;display:grid;place-items:center;width:100%}
+.vid-frame .vbtn:hover img,.vid:hover .vid-frame img{opacity:1;transform:scale(1.03)}
+.vplay{position:relative;z-index:1;width:64px;height:46px;border-radius:14px;display:grid;place-items:center;background:#ff2e3a;box-shadow:0 10px 30px -8px rgba(255,46,58,.7);transition:transform .2s}
+.vplay svg{width:22px;height:22px;fill:#fff}
+.vbtn:hover .vplay{transform:scale(1.08)}
+.vlist{position:absolute;left:12px;top:12px;z-index:1;font-family:var(--display);font-size:11px;letter-spacing:.12em;padding:4px 8px;border-radius:8px;background:rgba(0,0,0,.6);color:#fff}
+.vid-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid-info{padding:12px 14px 14px;display:grid;gap:3px}
+.vid-info b{font-weight:800;font-size:14px;line-height:1.3}
+.vid-info small{color:var(--dim);font-size:12px}
+.vid-info a{display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:12.5px;font-weight:800;color:var(--c1);width:max-content}
+.vid-info a svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.2}
+.pip{position:absolute;z-index:5;top:62px;right:18px;width:min(440px,calc(100% - 36px));border-radius:20px;overflow:hidden;background:#0b1018;border:1px solid var(--line2);box-shadow:0 30px 60px -20px #000}
+.pip header{display:flex;align-items:center;gap:10px;padding:10px 12px 10px 14px;font-size:13px;font-weight:700}
+.pip header span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pip header button{width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.08);font-size:18px;line-height:1}
+.pip-nav{display:flex;gap:6px;padding:0 12px 12px;overflow-x:auto}
+.pip-nav button{flex:none;height:30px;padding:0 10px;border-radius:9px;font-size:12px;font-weight:700;background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--dim)}
+.pip-nav button[aria-pressed="true"]{color:#060a12;background:var(--c1);border-color:var(--c1)}
+
 /* cronômetro */
 .crono{position:relative;margin:12px;height:calc(100vh - 24px);min-height:520px;border-radius:30px;overflow:hidden;border:1px solid var(--line);background:#0b0d24}
 .crono-top{position:absolute;z-index:3;top:16px;left:18px;right:18px;display:flex;justify-content:space-between;gap:10px;pointer-events:none}
@@ -358,6 +387,8 @@ ul,ol{padding:0;list-style:none}
   .rec .btn{grid-column:1/-1}
   .st-card{bottom:10px;padding:12px;gap:10px}
   .count-cta .btn{height:40px}
+  .pip{top:56px;left:12px;right:12px;width:auto}
+  .st-topic{grid-template-columns:1fr}
 }
 @media (max-width:520px){.cards,.guard{grid-template-columns:1fr}.kpi b{font-size:30px}.count-n{gap:16px}.count-n b{font-size:clamp(40px,12.5vw,64px)}.count-n small{font-size:10px;letter-spacing:.14em;margin-top:8px}.count-n i{display:none}.count-sub{font-size:12.5px;max-width:30ch;margin:0 auto}.detail-main{padding:20px}}
 @media (max-height:700px) and (min-width:900px){.count{top:42%}.count-cta{margin-top:14px}}
@@ -547,6 +578,59 @@ const LEVELS={
   ano:{label:'Já faz mais de um ano',title:'Fechar lacunas e treinar prova',body:'Você já viu quase tudo. Use os dias para fechar lacunas, inclusive temas que caem pouco, e treinar tempo de prova com simulados.',max:3}
 };
 const EXAM=new Date('2026-11-15T11:40:00-03:00').getTime();
+/* vídeos por tema: v = id do vídeo, list = id de playlist; by só quando o canal está confirmado */
+const V=(v,t,by)=>({v,t,by}),PL=(list,t,by)=>({list,t,by});
+const VIDEOS={
+ 'm-prop':[V('aAef69w8aNk','Aprenda agora: regra de três simples e composta','Sandro Curió')],
+ 'm-porc':[V('ZSg7J22y6lQ','Porcentagem','Prof. Gis'),V('ZMsieXqXwMg','Aprenda juros compostos em 8 minutos')],
+ 'm-est':[V('X5BUC6Lc8gw','Estatística no Enem: média, moda e mediana'),V('h5zYMGnxTI8','Média, mediana e moda em menos de 3 minutos')],
+ 'm-func':[V('u-pg5Pz_YUw','Zero de uma função afim','Prof. Gis'),V('DCT9jRSAwfs','Coordenadas do vértice da parábola','Prof. Gis')],
+ 'm-gesp':[V('ufA5Vkc2aDM','Geometria espacial: revisão para o Enem'),V('n_ahun94Wgw','Ferretto Prepara #15: geometria espacial','Professor Ferretto')],
+ 'm-gpla':[V('y3O5ZfAOw-g','Teorema de Pitágoras','Prof. Gis')],
+ 'm-prob':[PL('PLaKmzX_hXWkILLMM5ENIWnmBzSZ9q5V3_','Playlist de probabilidade','Sandro Curió')],
+ 'm-esc':[V('bAci_Mkqd1w','Escala e unidades de medida no Enem'),V('Ke0j6hsgoW4','Enem: conversão de unidades de medida')],
+ 'm-comb':[V('rSgs9YD9ns0','Análise combinatória: arranjo, permutação e combinação'),V('AytTPFOKXdg','Ferretto Prepara #12: análise combinatória','Professor Ferretto')],
+ 'm-pa':[V('Xcm05EaNHQU','Progressão aritmética (PA)','Prof. Gis'),V('c6YDcILFFDM','Ferretto Prepara #10: progressão aritmética','Professor Ferretto')],
+ 'm-eq':[V('m30KBtoWGAQ','Sistema de equações: método da substituição','Prof. Gis'),V('Fzn4SNY3v3k','Equação do primeiro grau: exercícios','Prof. Gis')],
+ 'm-trig':[PL('PLaKmzX_hXWkKvs5nY4Me4uf9Nr1gxceq1','Playlist de trigonometria','Sandro Curió')],
+ 'm-gan':[V('2fDRVCidiic','Distância entre dois pontos','Professora Angela'),V('oz5FtYmX8Nk','Equação geral da reta','Professora Angela')],
+ 'f-newt':[V('DtFt98uKfto','Leis de Newton e suas aplicações no Enem','Professor Boaro'),V('v7i8H8pa98w','Leis de Newton: força de atrito e polias','Professor Boaro')],
+ 'f-ener':[V('djmNsjz8PPA','Energia mecânica')],
+ 'f-elet':[V('v6MIQcIxdFE','Energia elétrica'),V('fwMDK4h3Bbg','Potência elétrica')],
+ 'f-ond':[V('0WeaGRPun94','Ondulatória'),V('Nlxs8r4xvpk','Acústica: conceitos fundamentais','Professor Boaro'),V('U6pEarIMtIk','Efeito Doppler','Professor Boaro')],
+ 'f-term':[V('HhXJzdw9fvg','Trocas de calor: cai todo ano','Professor Boaro'),V('utRovTzYL18','Termodinâmica, parte 2','Professor Boaro')],
+ 'f-cin':[V('1iSdCM3N0SA','Velocidade média'),V('f9zUJoPoI1c','Velocidade média, movimento uniforme e MUV')],
+ 'f-opt':[V('HSh5GWZjkes','Super revisão de óptica'),V('x_TLzkHalD0','Óptica: refração')],
+ 'f-hid':[V('pQlCv40jTCc','Hidrostática: mega aula completa','Professor Boaro')],
+ 'f-emag':[V('FFl1P5wB28s','Super revisão de eletromagnetismo')],
+ 'f-mod':[V('GiDV9y526Fg','Física moderna')],
+ 'f-grav':[V('fQFNKuyonfY','Leis de Kepler e gravitação universal')],
+ 'q-esteq':[V('Nuq4Yt785J8','Estequiometria no Enem','Brasil Escola'),V('e57Ou0VjaXM','Cálculo estequiométrico é fácil, parte 1')],
+ 'q-amb':[V('zVCnLZI3TlI','Poluição atmosférica: efeito estufa, ozônio e chuva ácida','Professor Vinícius'),V('HvHZXSZWc40','Chuva ácida para o Enem')],
+ 'q-org':[V('97H9LuCX-pQ','Reconhecimento das funções orgânicas')],
+ 'q-sol':[V('dJAXQnF7BVI','Concentração comum e molaridade'),V('x3LzMoFFjzY','Diluição de soluções')],
+ 'q-eletro':[V('qh7_pJ123C0','Eletroquímica: pilhas e eletrólise em menos de 10 minutos')],
+ 'q-eq':[V('0dVKqMAcoAw','Princípio de Le Chatelier'),V('sP5ETO6yaC4','Exercícios: equilíbrio químico, pH e Le Chatelier')],
+ 'q-termo':[V('mwgSzpuY4oc','Introdução à termoquímica: exotérmico e endotérmico'),V('a20xqo33qiw','Gráficos de entalpia','Prof. Carlos André')],
+ 'q-sep':[V('-oBzojZSxI4','Separação de misturas no Enem','Brasil Escola')],
+ 'q-lig':[V('1-pgbCOkDFE','Polaridade e forças intermoleculares')],
+ 'q-polim':[V('HQYL2wQFj7Y','Reações com compostos orgânicos','Prof. Paulo Valim')],
+ 'q-rad':[V('z1eHfptrVEw','Cinética radioativa e meia-vida'),V('wphktISJEIM','Radioatividade para o Enem')],
+ 'q-atom':[V('lzflexS1eRY','Modelos atômicos')],
+ 'b-ecoimp':[V('YNuyEH5LFeM','Eutrofização: impactos ambientais'),V('WNtCkBjJ7EI','Ciclo do nitrogênio')],
+ 'b-ecorel':[V('QQAqN7qL8Yg','Cadeia alimentar e teia alimentar'),V('cpmcIciaIWc','Relações ecológicas harmônicas e desarmônicas')],
+ 'b-cito':[V('fHC6M7xncds','Resumo sobre fotossíntese'),V('exX6EtKL6PU','Resumo sobre respiração celular')],
+ 'b-fisio':[V('pJnPe3M013w','Sistema imunológico: imunidade inata e adaptativa'),V('x3mBB8iByyY','Resumo sobre sistema endócrino')],
+ 'b-evol':[V('piRSx5SvYv8','Evolução: Darwin e Lamarck'),V('WZ-u3NUMkXc','Tipos de seleção natural')],
+ 'b-doen':[V('rMIRzIHxdXY','Doenças causadas por vírus'),V('ypyFcOnYpSc','Doenças causadas por parasitas')],
+ 'b-biotec':[V('VcrzfWYz0AE','Clonagem reprodutiva e terapêutica'),V('_Hq_d_lODyU','Células-tronco')],
+ 'b-gen':[V('3SmyPBbmRmQ','1ª lei de Mendel'),V('vFWYQvRVbxk','Sistema ABO: grupos sanguíneos')],
+ 'b-bioq':[V('LFqaBPFXAh0','DNA e RNA: ácidos nucleicos'),V('oxrKW1XJ7Kc','Enzimas')],
+ 'b-veg':[V('hVoJM7VuomY','Estômatos: estrutura e função'),V('wHN_qohious','Briófitas, pteridófitas, gimnospermas e angiospermas')],
+ 'b-zoo':[V('4NODvYsNpOw','Vertebrados: características e grupos')],
+ 'b-micro':[V('RYzuuPC0sGc','Resumo sobre vírus'),V('I2J9b7rreeY','Resistência bacteriana a antibióticos')],
+ 'b-hist':[V('p1AphSFlxEs','Tecidos animais: resumo')]
+};
 /* ───────── estado, XP e sincronização ───────── */
 const LS='mene.v1';
 function defaults(){return{v:2,name:'',level:null,goal:90,log:{},done:{},subsec:{},topicsec:{},cur:{s:'mat',t:null},session:null,sound:true,updatedAt:0}}
@@ -1117,7 +1201,7 @@ function show(r){
   const prev=route;route=r;
   document.querySelectorAll('.page').forEach(p=>p.hidden=p.id!==page);
   const navR=SLUG[r]?'materias':r;document.querySelectorAll('.nav-i').forEach(a=>{if(a.dataset.r===navR)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-  stopScenes();
+  stopScenes();if(r!=='cronometro')closePip();
   if(page==='pg-inicio')renderHome();else if(page==='pg-materias')renderMaterias();else if(page==='pg-materia')renderSubject();else if(page==='pg-relatorio')renderReport();else if(page==='pg-cronometro')renderCrono(true);
   placeCanvas();applyWorld(false);
   if(prev!==r)window.scrollTo(0,0);
@@ -1134,7 +1218,8 @@ function applyWorld(dawn){
 }
 function layoutWorld(){
   if(!World||!canvasW.parentElement)return;const r=canvasW.parentElement.getBoundingClientRect(),fr={l:0,t:0,r:0,b:0};
-  if(route==='cronometro'){const c=$('#stCard').getBoundingClientRect();fr.b=Math.max(0,r.bottom-c.top);fr.t=56}
+  if(route==='cronometro'){const c=$('#stCard').getBoundingClientRect(),pp=$('#pip');fr.b=Math.max(0,r.bottom-c.top);fr.t=56;
+    if(pp&&!pp.hidden){const q=pp.getBoundingClientRect();if(innerWidth>=900)fr.r=Math.max(0,r.right-q.left+8);else fr.t=Math.max(56,q.bottom-r.top)}}
   else{const ht=$('.hero-top').getBoundingClientRect();fr.t=Math.max(0,ht.bottom-r.top)}
   World.layout(fr);
 }
@@ -1197,7 +1282,25 @@ function detailHTML(t){const dn=!!state.done[t.id];
     '<aside class="detail-side panel"><div class="kv"><small>Incidência</small><div class="meter-tier">'+[1,2,3].map(k=>'<i class="'+(k<=4-t.tier?'on':'')+'"></i>').join('')+'</div><b>'+TIER[t.tier]+'</b></div>'+
     '<div class="kv"><small>Área na prova</small><b>'+t.area+'</b><span style="font-size:12px;color:var(--mute)">das questões da matéria, 1998–2020</span></div>'+
     '<div class="kv"><small>Para você</small><b>'+(isFocus(t)?'Prioridade':'Se sobrar tempo')+'</b></div><div class="kv"><small>Seu tempo neste tema</small><b>'+fmtDur(topSec(t.id)/60)+'</b></div>'+
-    '<button class="btn btn-pri" data-study="'+t.id+'">'+ICON.play+'Estudar no cronômetro</button><button class="btn '+(dn?'btn-sec':'btn-ok')+'" data-done="'+t.id+'">'+(dn?'Desmarcar':'Marcar como estudado')+'</button></aside>'}
+    '<button class="btn btn-pri" data-study="'+t.id+'">'+ICON.play+'Estudar no cronômetro</button><button class="btn '+(dn?'btn-sec':'btn-ok')+'" data-done="'+t.id+'">'+(dn?'Desmarcar':'Marcar como estudado')+'</button></aside>'+
+    '<section style="grid-column:1/-1">'+vidsHTML(t)+'</section>'}
+const ytThumb=v=>v.v?'https://i.ytimg.com/vi/'+v.v+'/hqdefault.jpg':'';
+const ytEmbed=v=>v.list?'https://www.youtube-nocookie.com/embed/videoseries?list='+v.list+'&autoplay=1&rel=0':'https://www.youtube-nocookie.com/embed/'+v.v+'?autoplay=1&rel=0&modestbranding=1';
+const ytLink=v=>v.list?'https://www.youtube.com/playlist?list='+v.list:'https://www.youtube.com/watch?v='+v.v;
+function vidsHTML(t){const vs=VIDEOS[t.id]||[];
+  return'<div class="vids-head"><div><h3>Vídeos deste tema</h3><p>Assista aqui mesmo, sem sair do MENE.</p></div><button class="btn btn-sec btn-sm" data-study="'+t.id+'">'+ICON.play+'Assistir no cronômetro</button></div>'+
+    (vs.length?'<div class="vids">'+vs.map((v,i)=>'<div class="vid"><div class="vid-frame" data-vid="'+t.id+':'+i+'"><button class="vbtn" aria-label="Assistir: '+esc(v.t)+'">'+(v.v?'<img src="'+ytThumb(v)+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">':'<span class="vlist">PLAYLIST</span>')+'<span class="vplay">'+ICON.play+'</span></button></div>'+
+      '<div class="vid-info"><b>'+esc(v.t)+'</b><small>'+(v.by?esc(v.by):'Aula no YouTube')+'</small><a href="'+ytLink(v)+'" target="_blank" rel="noopener">Abrir no YouTube '+ICON.ext+'</a></div></div>').join('')+'</div>'
+      :'<div class="empty" style="margin-top:14px">Ainda não separamos um vídeo para este tema. <a href="'+YT(t.name+' Enem aula')+'" target="_blank" rel="noopener" style="color:var(--c1);font-weight:800">Buscar no YouTube</a></div>');
+}
+function playIn(frame){const k=frame.dataset.vid.split(':'),v=(VIDEOS[k[0]]||[])[+k[1]];if(!v)return;
+  frame.innerHTML='<iframe src="'+ytEmbed(v)+'" title="'+esc(v.t)+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>'}
+let pipIdx=0;
+function openPip(id,i){const vs=VIDEOS[id]||[];if(!vs.length)return;pipIdx=i||0;let el=$('#pip');if(!el){el=document.createElement('div');el.id='pip';el.className='pip';$('#crono').appendChild(el)}
+  el.style.setProperty('--c1',SUBJECTS[BYID[id].s].c1);el.hidden=false;const v=vs[pipIdx];
+  el.innerHTML='<header><span>'+esc(v.t)+(v.by?' · '+esc(v.by):'')+'</span><button data-pip="close" aria-label="Fechar vídeo">×</button></header><div class="vid-frame" data-vid="'+id+':'+pipIdx+'"></div>'+(vs.length>1?'<div class="pip-nav">'+vs.map((x,k)=>'<button data-pip="'+id+':'+k+'" aria-pressed="'+(k===pipIdx)+'">Vídeo '+(k+1)+'</button>').join('')+'</div>':'');
+  playIn(el.querySelector('.vid-frame'));requestAnimationFrame(layoutWorld)}
+function closePip(){const el=$('#pip');if(el&&!el.hidden){el.innerHTML='';el.hidden=true;requestAnimationFrame(layoutWorld)}}
 const initials=n=>n.replace(/^(Prof\.?|Professor|Curso)\s+/i,'').split(/\s+/).filter(w=>w.length>2||/^[A-Z]/.test(w)).slice(0,2).map(w=>w[0]).join('').toUpperCase();
 const chanHTML=c=>'<a class="chan" href="'+c.url+'" target="_blank" rel="noopener"><span class="chan-av">'+initials(c.name)+'</span><div><b>'+c.name+(c.fav?'<span class="fav">★ sua indicação</span>':'')+'</b><small>'+c.by+'</small><p>'+c.note+'</p><em>Abrir no YouTube '+ICON.ext+'</em></div></a>';
 function selectTopic(id,fromList){const t=BYID[id];if(!t)return;selTopic[t.s]=id;
@@ -1213,7 +1316,7 @@ function renderCrono(force){
     el.style.setProperty('--c1',SUBJECTS[cs].c1);el.style.setProperty('--c2',SUBJECTS[cs].c2);
     el.innerHTML='<div class="st-subj" role="group" aria-label="Matéria">'+SORDER.map(k=>'<button data-cs="'+k+'" aria-pressed="'+(k===cs)+'" style="--c1:'+SUBJECTS[k].c1+'"><span class="dot"></span>'+SUBJECTS[k].name+'</button>').join('')+'</div>'+
       '<div class="st-topic"><select id="stSel" aria-label="Tema que você vai estudar">'+subjTopics(cs).map(t=>'<option value="'+t.id+'"'+(t.id===tp.id?' selected':'')+'>'+(state.done[t.id]?'✓ ':'')+t.name+' · '+TIER[t.tier]+'</option>').join('')+'</select>'+
-      (s?'<button class="btn btn-sm '+(dn?'btn-sec':'btn-ok')+'" data-done="'+tp.id+'">'+(dn?'Estudado':'Concluí')+'</button>':'<a class="btn btn-sm btn-sec" href="#'+SUBJECTS[cs].slug+'" data-topic="'+tp.id+'">Ver tema</a>')+'</div>'+
+      '<div style="display:flex;gap:6px">'+((VIDEOS[tp.id]||[]).length?'<button class="btn btn-sm btn-sec" data-pip="'+tp.id+':0">'+ICON.play+'Vídeo</button>':'')+(s?'<button class="btn btn-sm '+(dn?'btn-sec':'btn-ok')+'" data-done="'+tp.id+'">'+(dn?'Estudado':'Concluí')+'</button>':'<a class="btn btn-sm btn-sec" href="#'+SUBJECTS[cs].slug+'" data-topic="'+tp.id+'">Ver tema</a>')+'</div></div>'+
       '<div class="meter"><div class="bar"><i id="stBar"></i></div><span id="stMsg"></span></div>'+
       (s?'<div class="st-actions"><button class="btn btn-sec" id="stPause">'+(running?'Pausar':'Retomar')+'</button><button class="btn btn-pri" id="stEnd">Encerrar sessão</button></div>':'<div class="st-actions one"><button class="btn btn-pri" data-go="1">'+ICON.play+'Começar a estudar</button></div>')+
       '<div class="goal"><span>Meta de hoje</span><div class="stepper"><button data-goal="-15" aria-label="Menos 15 minutos">−</button><output>'+fmtDur(state.goal)+'</output><button data-goal="15" aria-label="Mais 15 minutos">+</button></div></div>';
@@ -1313,15 +1416,17 @@ document.addEventListener('click',e=>{
   const a=e.target.closest('a,button');if(!a)return;
   if(a.dataset.topic){const t=BYID[a.dataset.topic];if(t){selTopic[t.s]=t.id;if(route===SUBJECTS[t.s].slug){e.preventDefault();selectTopic(t.id,true)}}}
   if(a.dataset.qi!==undefined){pickSearch(+a.dataset.qi);return}
+  if(a.classList.contains('vbtn')){playIn(a.closest('.vid-frame'));return}
+  if(a.dataset.pip){if(a.dataset.pip==='close')closePip();else{const k=a.dataset.pip.split(':');openPip(k[0],+k[1])}return}
   if(a.dataset.close){$('#result').hidden=true;if(a.tagName==='BUTTON')return}
   if(a.dataset.act==='catalog'){$('#catalogo').scrollIntoView({behavior:reduceMotion?'auto':'smooth'});return}
   if(a.dataset.act==='quiz'){openQuiz();return}
   if(a.dataset.sel){selectTopic(a.dataset.sel,!a.classList.contains('opt'));return}
-  if(a.dataset.study){const t=BYID[a.dataset.study];attribute();state.cur={s:t.s,t:t.id};if(state.session)state.session.sub=t.s,state.session.top=t.id;touch();go('cronometro');return}
+  if(a.dataset.study){const t=BYID[a.dataset.study];attribute();state.cur={s:t.s,t:t.id};if(state.session)state.session.sub=t.s,state.session.top=t.id;touch();go('cronometro');if(a.closest('.vids-head'))setTimeout(()=>openPip(t.id,0),60);return}
   if(a.dataset.done){const id=a.dataset.done;if(state.done[id])delete state.done[id];else{attribute();state.done[id]=today();Music.sfx('ok');toast('Tema concluído: +20 XP')}touch();renderSide();
     if(route==='cronometro')renderCrono(true);else if(SLUG[route]){renderSubjBody()}return}
   if(a.dataset.go){startSession();return}
-  if(a.dataset.cs){attribute();state.cur.s=a.dataset.cs;state.cur.t=nextTopic(a.dataset.cs).id;if(state.session){state.session.sub=state.cur.s;state.session.top=state.cur.t}touch();renderCrono(true);return}
+  if(a.dataset.cs){closePip();attribute();state.cur.s=a.dataset.cs;state.cur.t=nextTopic(a.dataset.cs).id;if(state.session){state.session.sub=state.cur.s;state.session.top=state.cur.t}touch();renderCrono(true);return}
   if(a.dataset.goal){state.goal=clamp(state.goal+Number(a.dataset.goal),15,480);touch();renderCrono(true);if(World&&state.session&&state.session.t0)World.setClock(clockTarget());return}
   if(a.dataset.lv){qData.level=a.dataset.lv;renderQuiz();return}
   if(a.dataset.g){qData.goal=+a.dataset.g;renderQuiz();return}
@@ -1330,7 +1435,7 @@ document.addEventListener('click',e=>{
   if(a.id==='stPause'){togglePause();return}
   if(a.id==='stEnd'){endSession();return}
 });
-document.addEventListener('change',e=>{if(e.target.id==='stSel'){attribute();state.cur.t=e.target.value;if(state.session)state.session.top=state.cur.t;touch();renderCrono(true)}});
+document.addEventListener('change',e=>{if(e.target.id==='stSel'){closePip();attribute();state.cur.t=e.target.value;if(state.session)state.session.top=state.cur.t;touch();renderCrono(true)}});
 document.addEventListener('input',e=>{if(e.target.id==='nameIn'){state.name=e.target.value.trim().slice(0,40);clearTimeout(renderSide.t);renderSide.t=setTimeout(()=>{touch();renderSide()},400)}});
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='qName'){e.preventDefault();qData.name=e.target.value;qStep=1;renderQuiz()}});
 document.addEventListener('pointermove',e=>{const sp=e.target.closest&&e.target.closest('.spot');if(!sp||reduceMotion)return;const r=sp.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
