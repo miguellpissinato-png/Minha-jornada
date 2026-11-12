@@ -290,8 +290,9 @@ ul,ol{padding:0;list-style:none}
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
 .kpi{padding:18px;display:grid;gap:4px}
 .kpi small{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
-.kpi b{font-family:var(--display);font-size:38px;line-height:1.05;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#fff,var(--sky));-webkit-background-clip:text;background-clip:text;color:transparent}
-.kpi span{font-size:12.5px;color:var(--dim)}
+.kpi b{font-family:var(--body);font-weight:800;letter-spacing:-.02em;font-size:34px;line-height:1.1;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#fff,var(--sky));-webkit-background-clip:text;background-clip:text;color:transparent}
+.kpi span{font-size:13px;color:var(--dim);line-height:1.4}
+.kpi .bar{margin-top:8px}
 .grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;margin-top:14px}
 .box{padding:22px}
 .box h3{font-family:var(--display);font-size:20px;font-weight:700;margin-bottom:4px}
@@ -1352,6 +1353,15 @@ function endSession(){
 }
 
 /* ── relatório ── */
+function kpisHTML(tsec,wsec,wk,nDone){
+  const gm=state.goal,tm=Math.floor(tsec/60),left=Math.max(0,gm-tm),pct=Math.min(100,tm/gm*100),wd=wk.filter(k=>daySec(k)>=60).length,st=streak();
+  const d0=dateOf(wk[0]),d1=dateOf(wk[6]),range=d0.getDate()+' a '+d1.getDate()+' de '+MES[d1.getMonth()].slice(0,3)+'.';
+  const k=(lbl,val,sub,extra)=>'<div class="kpi panel"><small>'+lbl+'</small><b>'+val+'</b><span>'+sub+'</span>'+(extra||'')+'</div>';
+  return'<div class="kpis">'+
+    k('Estudado hoje',fmtDur(tm),left?'Meta: '+fmtDur(gm)+' · faltam '+fmtDur(left):'Meta de '+fmtDur(gm)+' batida','<div class="bar"><i style="width:'+pct.toFixed(1)+'%"></i></div>')+
+    k('Estudado na semana',fmtDur(wsec/60),wd?'Em '+wd+(wd===1?' dia':' dias')+' · semana de '+range:'Semana de '+range)+
+    k('Dias seguidos',st+(st===1?' dia':' dias'),'Com pelo menos 10 min de estudo')+
+    k('Temas concluídos',nDone+' de '+TOPICS.length,'Somando as quatro matérias')+'</div>'}
 let avBig=null;
 function renderReport(){
   const t=today(),wk=weekKeys(),wsec=wk.reduce((a,k)=>a+daySec(k),0),tsec=daySec(t),x=xpTotal(),l=levelOf(x),dl=Object.keys(state.done).filter(id=>BYID[id]);
@@ -1359,7 +1369,7 @@ function renderReport(){
   let h='<header class="page-head"><p class="eyebrow">Relatório</p><h1 class="scenic" id="repTitle">Sua jornada</h1></header>'+
     '<div class="me panel"><span id="avSlot"></span><div><label class="sr" for="nameIn">Seu nome</label><input id="nameIn" type="text" maxlength="40" placeholder="Seu nome" value="'+esc(state.name)+'"><small>Nível '+l.n+' · '+l.name+' · '+x+' XP'+(l.b>l.a?' · faltam '+(l.b-x)+' para o próximo':'')+'</small><div class="bar"><i style="width:'+Math.round(l.f*100)+'%"></i></div></div>'+
     '<div class="settings"><button class="btn btn-sec btn-sm" data-act="quiz">Refazer questionário</button></div></div>'+
-    '<div class="kpis"><div class="kpi panel"><small>Hoje</small><b>'+fmtDur(tsec/60)+'</b><span>meta de '+fmtDur(state.goal)+'</span></div><div class="kpi panel"><small>Esta semana</small><b>'+fmtDur(wsec/60)+'</b><span>de segunda a domingo</span></div><div class="kpi panel"><small>Sequência</small><b>'+streak()+'</b><span>dias seguidos</span></div><div class="kpi panel"><small>Temas estudados</small><b>'+dl.length+'/'+TOPICS.length+'</b><span>nas quatro matérias</span></div></div>'+
+    kpisHTML(tsec,wsec,wk,dl.length)+
     '<div class="grid2"><div class="box panel"><h3>Sua semana</h3><p>Minutos de estudo por dia. A linha laranja é a sua meta.</p><div class="week"><div class="gl" style="bottom:calc(46px + '+(state.goal*60/mx*100*.78).toFixed(1)+'%)"><span>meta</span></div>'+
       wk.map(k=>{const v=daySec(k),fut=k>t;return'<div class="wk'+(k===t?' today':'')+(fut?' fut':'')+'"><div><i style="height:'+(fut?3:Math.max(2,v/mx*100)).toFixed(1)+'%"></i></div><b>'+(fut?'·':Math.round(v/60)+'m')+'</b><small>'+WD3[dateOf(k).getDay()]+'</small></div>'}).join('')+'</div></div>'+
     '<div class="box panel"><h3>Matérias que você estudou</h3><p>Tempo total em cada uma e temas concluídos.</p><ul class="subbars">'+SORDER.map(s=>{const S=SUBJECTS[s],sec=subSec(s),all=subjTopics(s),dn=all.filter(t=>state.done[t.id]).length,mxs=Math.max(...SORDER.map(subSec),1);
